@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+
+const faq = [
+  { q: 'Vous déplacez-vous dans tout le Lot-et-Garonne ?', a: "Oui : Agen, Villeneuve-sur-Lot, Marmande, Nérac, Boé, Le Passage, Bon-Encontre et alentours. Je viens sur place pour l'immersion et les moments clés du projet." },
+  { q: 'Et à Toulouse ?', a: "Oui, je me déplace aussi à Toulouse et dans sa périphérie pour les phases qui gagnent à se faire en présentiel." },
+  { q: 'Pourquoi choisir un prestataire local ?', a: "Pour venir voir comment vous travaillez, rencontrer vos équipes et réagir vite. Un outil métier se conçoit mieux sur le terrain que par visio interposée." },
+];
+---
+<Base
+  title="Développeur de logiciel sur mesure à Agen (Lot-et-Garonne)"
+  description="Développeur indépendant à Agen : logiciel métier sur mesure, automatisation et connexion d'outils pour les PME du Lot-et-Garonne. Déplacement sur place, prix affichés."
+>
+  <PageHero
+    eyebrow="Agen · Lot-et-Garonne"
+    title="Logiciel sur mesure à Agen, <span class='hl'>pensé sur le terrain</span>"
+    lead="Vous dirigez une PME dans le Lot-et-Garonne et vos outils ne suivent plus ? Je viens sur place comprendre votre activité, puis je développe l'outil qui vous manque."
+    crumbs={[{ href: '/developpeur-logiciel-sur-mesure-agen/', label: 'Agen' }]}
+  >
+    <div class="btn-row">
+      <a class="btn btn--primary" href="/contact/">Prendre contact <Icon name="arrow" size={18} /></a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="prose">
+        <h2>Un développeur à Agen, pas un centre d'appels</h2>
+        <p>Les PME agenaises ont souvent le même problème : elles ont grandi vite, avec des outils choisis au fil de l'eau. Un logiciel de caisse ici, un tableur là, un ERP trop gros quelque part. Les agences toulousaines ou bordelaises sont loin et chères, et les solutions no-code finissent par coûter plus cher qu'elles ne rapportent.</p>
+        <p>Somerloop propose une autre voie : <strong>un développeur basé à Agen</strong>, qui vient voir comment vous travaillez et qui construit un outil à votre mesure, connecté à vos logiciels existants.</p>
+        <h2>Pour quels besoins ?</h2>
+        <ul>
+          <li>Relier production, stock et ventes dans un outil simple (agroalimentaire, magasins d'usine, artisanat)</li>
+          <li>Supprimer les doubles saisies entre vos logiciels</li>
+          <li>Suivre votre activité dans un tableau de bord fiable</li>
+          <li>Rendre votre entreprise visible sur Google à Agen et dans le département</li>
+          <li>Sécuriser les accès de vos équipes et vous mettre en conformité RGPD</li>
+        </ul>
+        <h2>Des aides pour les entreprises du Lot-et-Garonne</h2>
+        <p>La CCI 47 et l'agence régionale AD'OCC accompagnent les projets de transformation numérique. Certaines aides peuvent réduire le coût d'un diagnostic ou d'un projet. Voir la <a href="/faq/#theme-3">FAQ sur les aides publiques</a>.</p>
+      </div>
+      <aside class="side">
+        <div class="card">
+          <h2 class="h3">Zone d'intervention</h2>
+          <ul class="checklist">
+            <li>Agen et son agglomération</li>
+            <li>Lot-et-Garonne : Villeneuve-sur-Lot, Marmande, Nérac…</li>
+            <li>Toulouse et sa périphérie</li>
+            <li>Partout en France à distance</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2 class="h3">Pour commencer</h2>
+          <p>L'immersion et diagnostic (600 à 1 200 €) se fait sur place, dans vos locaux.</p>
+          <a href="/prestations/immersion-diagnostic/">Découvrir le diagnostic</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="narrow">
+      <h2>Questions fréquentes</h2>
+      <Faq items={faq} />
+    </div>
+  </section>
+  <Cta title="Une PME à Agen ou dans le 47 ?" text="Écrivez-moi, on peut se rencontrer dans vos locaux pour en parler." />
+</Base>
+
+<style>
+  .split { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: start; }
+  .side { display: grid; gap: 1.25rem; position: sticky; top: 96px; }
+  .h3 { font-size: 1.2rem; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } .side { position: static; } }
+</style>

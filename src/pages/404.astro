@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+---
+<Base title="Page introuvable" description="Cette page n'existe pas ou plus." noindex>
+  <PageHero
+    eyebrow="Erreur 404"
+    title="Cette page a pris la mauvaise boucle"
+    lead="Elle n'existe pas, ou plus. Pas de panique, voici de quoi retrouver votre chemin."
+  >
+    <div class="btn-row">
+      <a class="btn btn--primary" href="/">Retour à l'accueil</a>
+      <a class="btn btn--ghost" href="/plan-du-site/">Plan du site</a>
+    </div>
+  </PageHero>
+</Base>

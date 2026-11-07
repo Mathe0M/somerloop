@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+---
+<Base title="Message envoyé" description="Votre message a bien été envoyé." noindex>
+  <PageHero
+    eyebrow="Message envoyé"
+    title="Merci, c'est bien reçu"
+    lead="Je lis votre message et je vous réponds sous 48 heures ouvrées. Pensez à vérifier vos courriers indésirables."
+  >
+    <div class="btn-row">
+      <a class="btn btn--primary" href="/realisations/">Voir les réalisations</a>
+      <a class="btn btn--ghost" href="/">Retour à l'accueil</a>
+    </div>
+  </PageHero>
+</Base>

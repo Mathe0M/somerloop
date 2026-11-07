@@ -1,0 +1,34 @@
+---
+interface Props { items: { q: string; a: string }[]; schema?: boolean }
+const { items, schema = true } = Astro.props;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((i) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a } })),
+};
+---
+<div class="faq">
+  {items.map((i) => (
+    <details>
+      <summary>{i.q}</summary>
+      <p set:html={i.a} />
+    </details>
+  ))}
+</div>
+{schema && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
+
+<style>
+  .faq { border-top: 1px solid var(--line); }
+  details { border-bottom: 1px solid var(--line); }
+  summary {
+    cursor: pointer; list-style: none; padding: 1.15rem 2.5rem 1.15rem 0; position: relative;
+    font-family: var(--font-title); font-weight: 600; font-size: 1.12rem;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '+'; position: absolute; right: .3rem; top: 50%; transform: translateY(-50%);
+    font-size: 1.6rem; color: var(--accent-strong); font-weight: 400;
+  }
+  details[open] summary::after { content: '–'; }
+  details p { color: var(--ink-soft); padding-bottom: 1.1rem; margin: 0; max-width: 68ch; }
+</style>

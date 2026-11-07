@@ -1,0 +1,29 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { SITE } from '../config';
+---
+<Legal title="Déclaration d'accessibilité" description="État de conformité du site somerloop.fr au référentiel général d'amélioration de l'accessibilité (RGAA)." path="/accessibilite/" updated="novembre 2026">
+  <p>Somerloop s'engage à rendre son site accessible, conformément à l'article 47 de la loi n° 2005-102 du 11 février 2005. Cette déclaration s'applique au site somerloop.fr.</p>
+
+  <h2>État de conformité</h2>
+  <p>Le site somerloop.fr est <strong>partiellement conforme</strong> avec le RGAA version 4.1.2. Aucun audit externe n'a encore été réalisé : cet état repose sur une vérification interne.</p>
+
+  <h2>Mesures prises</h2>
+  <ul>
+    <li>Structure de titres hiérarchisée et repères de navigation (en-tête, menu, contenu principal, pied de page)</li>
+    <li>Lien d'évitement « Aller au contenu »</li>
+    <li>Navigation complète au clavier et focus visible</li>
+    <li>Contrastes de couleurs vérifiés pour le texte</li>
+    <li>Formulaire avec étiquettes explicites et messages d'erreur annoncés</li>
+    <li>Respect du réglage « réduire les animations » du système</li>
+  </ul>
+
+  <h2>Établissement de cette déclaration</h2>
+  <p>Déclaration établie en novembre 2026. Technologies utilisées : HTML, CSS, JavaScript. Vérifications réalisées en interne : navigation au clavier, contrastes, structure des titres et outils de test automatiques.</p>
+
+  <h2>Retour d'information et contact</h2>
+  <p>Si vous ne parvenez pas à accéder à un contenu ou à un service, écrivez à <a href={`mailto:${SITE.email}`}>{SITE.email}</a> : une alternative accessible vous sera proposée.</p>
+
+  <h2>Voies de recours</h2>
+  <p>Si vous constatez un défaut d'accessibilité qui vous empêche d'accéder à un contenu et que vous n'obtenez pas de réponse satisfaisante, vous pouvez écrire au Défenseur des droits (<a href="https://formulaire.defenseurdesdroits.fr">formulaire en ligne</a>) ou contacter le délégué du Défenseur des droits de votre région.</p>
+</Legal>

@@ -1,0 +1,119 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import Cta from '../components/Cta.astro';
+
+// Pour ajouter une capture : déposer l'image dans public/images/realisations/ et renseigner `image`.
+const cases = [
+  {
+    icon: 'users', tag: 'Automatisation · ATS',
+    title: 'Des outils qui suivent un réseau passé de 20 à plus de 100 personnes',
+    problem: 'Chaque nouveau recruteur ajoutait de la gestion : accès à créer, offres à diffuser, candidatures à répartir à la main.',
+    solution: "Configuration complète de l'ATS, automatisations entre l'ATS et le site, création et retrait des accès standardisés.",
+    result: "Plus de 1 500 offres diffusées et plus de 10 000 candidatures gérées chaque jour, sans équipe dédiée aux outils.",
+  },
+  {
+    icon: 'search', tag: 'IA · Recherche documentaire',
+    title: 'Un assistant qui retrouve la bonne réponse dans la documentation interne',
+    problem: "Procédures, modèles et guides éparpillés : les nouveaux arrivants posaient toujours les mêmes questions.",
+    solution: "Un moteur de recherche intelligent (RAG) branché sur la base documentaire, qui répond en citant ses sources.",
+    result: "Une réponse en quelques secondes, à toute heure, et moins de sollicitations pour la tête de réseau.",
+  },
+  {
+    icon: 'sparkles', tag: 'IA · Prospection',
+    title: 'Un assistant IA en direct pendant les appels de prospection',
+    problem: "Au téléphone, il faut trouver le bon argument au bon moment, surtout quand on débute.",
+    solution: "Un assistant qui suggère en temps réel des réponses et des relances pendant l'appel.",
+    result: "Des recruteurs plus sereins en prospection et une montée en compétence plus rapide.",
+  },
+  {
+    icon: 'layers', tag: 'Application · Formation',
+    title: 'Une plateforme de formation interne avec vidéos, quiz et score',
+    problem: "La formation des nouveaux membres reposait sur des visios répétées et des documents dispersés.",
+    solution: "Une plateforme e-learning sur mesure : parcours vidéo, quiz, score et suivi de progression.",
+    result: "Un parcours d'intégration identique pour tous, suivi par la tête de réseau.",
+  },
+  {
+    icon: 'pin', tag: 'Application · Cartographie',
+    title: 'Une carte interactive des recruteurs du réseau',
+    problem: "Difficile de montrer rapidement aux entreprises qui couvre quel territoire.",
+    solution: "Une carte interactive alimentée automatiquement par les données du réseau.",
+    result: "Un outil commercial toujours à jour, sans ressaisie.",
+  },
+  {
+    icon: 'chart', tag: 'Site · SEO',
+    title: 'Refonte du site et référencement',
+    problem: "Un site à faire évoluer avec le réseau et à rendre visible sur Google.",
+    solution: "Pilotage de la refonte avec une agence (arborescence, maquettes, fonctionnalités), puis développement en interne, SEO technique et fiches Google.",
+    result: "Un site que l'équipe fait évoluer elle-même, sans dépendre d'un prestataire pour chaque changement.",
+  },
+];
+---
+<Base
+  title="Réalisations : applications métier, automatisations et IA"
+  description="Exemples d'applications métier, d'automatisations et d'outils IA conçus pour un réseau de plus de 100 recruteurs, et ce que cela peut donner pour votre PME."
+>
+  <PageHero
+    eyebrow="Réalisations"
+    title="Des outils en production, utilisés <span class='hl'>tous les jours</span>"
+    lead="Mon premier terrain de jeu : Work&You, un réseau de recruteurs indépendants passé de 20 à plus de 100 personnes en trois ans. Voici ce que j'y ai construit, et ce que la même approche peut donner chez vous."
+    crumbs={[{ href: '/realisations/', label: 'Réalisations' }]}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid-2">
+        {cases.map((c) => (
+          <article class="card case">
+            <span class="ico"><Icon name={c.icon as any} /></span>
+            <span class="pill">{c.tag}</span>
+            <h2 class="h3">{c.title}</h2>
+            <dl>
+              <dt>Le problème</dt><dd>{c.problem}</dd>
+              <dt>La solution</dt><dd>{c.solution}</dd>
+              <dt>Le résultat</dt><dd>{c.result}</dd>
+            </dl>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Scénario type</p>
+        <h2>Et pour une PME agroalimentaire ?</h2>
+        <p>Une entreprise a grossi vite. Elle vend dans son magasin d'usine, suit sa production sur un tableur et compte son stock à la main. Aucun logiciel du marché ne colle : trop gros, trop cher, ou pensé pour la grande distribution.</p>
+        <p>La réponse Somerloop : un outil simple qui relie <strong>les données de production, le stock et le logiciel de caisse existant</strong>. La direction suit ses ventes au jour le jour, les ruptures sont anticipées et l'inventaire du samedi disparaît.</p>
+        <p class="note">Ce scénario illustre la démarche. Ce n'est pas un client réel.</p>
+      </div>
+      <ol class="flow" aria-label="Flux de données du scénario">
+        <li><Icon name="database" /> Production saisie une fois</li>
+        <li><Icon name="layers" /> Stock mis à jour automatiquement</li>
+        <li><Icon name="app" /> Ventes remontées depuis la caisse</li>
+        <li><Icon name="chart" /> Tableau de bord sur mobile</li>
+      </ol>
+    </div>
+  </section>
+
+  <Cta title="Votre entreprise sera peut-être la prochaine réalisation" />
+</Base>
+
+<style>
+  .h3 { font-size: 1.3rem; margin-top: .9rem; }
+  .case dl { margin: 1rem 0 0; }
+  .case dt { font-family: var(--font-title); font-weight: 600; font-size: .9rem; color: var(--loop); margin-top: .8rem; }
+  .case dd { margin: .15rem 0 0; color: var(--ink-soft); }
+  .split { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center; }
+  .note { font-size: .9rem; color: var(--ink-soft); font-style: italic; }
+  .flow { list-style: none; margin: 0; padding: 0; display: grid; gap: .9rem; }
+  .flow li {
+    display: flex; gap: .8rem; align-items: center; background: var(--bg); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 1rem 1.2rem; font-family: var(--font-title); font-weight: 600; position: relative;
+  }
+  .flow li :global(svg) { color: var(--loop); flex: none; }
+  .flow li + li::before { content: '↓'; position: absolute; top: -1.05rem; left: 1.6rem; color: var(--accent-strong); font-size: .9rem; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,25 @@
+---
+interface Props { title?: string; text?: string }
+const {
+  title = 'Un problème d’outils qui vous freine ?',
+  text = 'Racontez-moi en quelques lignes où vous perdez du temps. Je vous réponds sous 48 h ouvrées avec une première piste, sans engagement.',
+} = Astro.props;
+---
+<section class="section section--dark cta">
+  <div class="wrap inner">
+    <div>
+      <h2>{title}</h2>
+      <p class="lead">{text}</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn--primary" href="/contact/">Décrire mon besoin</a>
+      <a class="btn btn--ghost" href="/prestations/immersion-diagnostic/">Commencer par un diagnostic</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .inner { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2rem; align-items: center; }
+  .btn-row { justify-content: flex-end; margin-top: 0; }
+  @media (max-width: 860px) { .inner { grid-template-columns: 1fr; } .btn-row { justify-content: flex-start; } }
+</style>

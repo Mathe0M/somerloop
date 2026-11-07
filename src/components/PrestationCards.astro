@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
+const all = (await getCollection('prestations')).sort((a, b) => a.data.order - b.data.order);
+---
+<div class="grid grid-3 cards">
+  {all.map((p) => (
+    <a class={`card card--link ${p.data.order === 2 ? 'featured' : ''}`} href={`/prestations/${p.id}/`}>
+      <span class="ico"><Icon name={p.data.icon as any} /></span>
+      {p.data.badge && <span class="pill pill--accent badge">{p.data.badge}</span>}
+      <h3>{p.data.title}</h3>
+      <p>{p.data.short}</p>
+      <p class="meta"><strong>{p.data.price}</strong> · {p.data.duration}</p>
+      <span class="more">Voir le détail <Icon name="arrow" size={16} /></span>
+    </a>
+  ))}
+</div>
+
+<style>
+  .badge { position: absolute; top: 1.75rem; right: 1.75rem; }
+  .meta { font-size: .95rem; color: var(--ink-soft); }
+  .meta strong { color: var(--ink); }
+  .featured { border: 2px solid var(--ink); }
+  @media (min-width: 980px) { .featured { grid-row: span 1; } }
+</style>

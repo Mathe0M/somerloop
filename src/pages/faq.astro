@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+
+const groups = [
+  {
+    title: 'Travailler ensemble',
+    items: [
+      { q: 'Quelles entreprises accompagnez-vous ?', a: "Des PME en croissance, quel que soit leur secteur : industrie, agroalimentaire, commerce, services. Mon interlocuteur est en général la direction." },
+      { q: 'Travaillez-vous à distance ?', a: "Oui, partout en France. Je me déplace volontiers à Agen, dans le Lot-et-Garonne et à Toulouse, notamment pour la phase d'immersion." },
+      { q: 'Combien de temps pour avoir une réponse ?', a: "Je réponds à toute demande sous 48 heures ouvrées, avec une première piste ou des questions pour mieux comprendre votre besoin." },
+      { q: 'Vous travaillez seul ?', a: "Oui. Vous avez un seul interlocuteur du premier échange à la maintenance. Pour les projets qui le demandent, je peux m'appuyer sur des partenaires de confiance, toujours avec votre accord." },
+      { q: 'Est-ce compatible avec votre poste chez Work&You ?', a: "Oui. Somerloop est une activité complémentaire déclarée à mon employeur, sans clause d'exclusivité. Je ne travaille simplement pas pour des cabinets de recrutement concurrents." },
+    ],
+  },
+  {
+    title: 'Prix et engagement',
+    items: [
+      { q: 'Combien coûte un logiciel sur mesure ?', a: "La plupart des projets se situent entre 3 000 et 15 000 €, découpés en étapes facturées séparément. Les prix de chaque prestation sont affichés sur la page <a href='/prestations/'>Prestations</a>." },
+      { q: 'Je ne veux pas m’engager sur un gros projet. Comment faire ?', a: "Commencez par l'<a href='/prestations/immersion-diagnostic/'>immersion et diagnostic</a> (600 à 1 200 €). Vous repartez avec une feuille de route, que vous pouvez mettre en œuvre avec qui vous voulez." },
+      { q: 'Le code m’appartient-il ?', a: "Oui. Le code développé spécifiquement pour vous vous appartient une fois le projet réglé. Les conditions sont précisées dans le devis et les CGV." },
+      { q: 'Garantissez-vous des résultats ?', a: "Je ne garantis pas de résultat chiffré (chiffre d'affaires, positionnement Google) car il dépend de nombreux facteurs hors de mon contrôle. Je m'engage sur la qualité du travail livré, sa documentation et son suivi." },
+    ],
+  },
+  {
+    title: 'Technique et sécurité',
+    items: [
+      { q: 'Où sont hébergées les données ?', a: "Je privilégie des hébergeurs situés en France ou dans l'Union européenne. Le choix est fait avec vous selon la sensibilité des données." },
+      { q: 'Et le RGPD ?', a: "Il est pris en compte dès la conception : données limitées au nécessaire, durées de conservation, droits d'accès, journalisation. Je gère déjà la conformité RGPD des CV d'un réseau de plus de 100 recruteurs." },
+      { q: 'Utilisez-vous l’intelligence artificielle ?', a: "Quand elle apporte un vrai gain : rechercher dans vos documents, préremplir une saisie, résumer un échange. Je privilégie des fournisseurs européens et je vous explique toujours ce qui est envoyé à l'IA." },
+    ],
+  },
+  {
+    title: 'Aides publiques',
+    items: [
+      { q: 'Existe-t-il des aides pour financer un projet numérique ?', a: "Oui, plusieurs dispositifs peuvent réduire la facture selon votre taille, votre secteur et votre région. Les conditions changent régulièrement : vérifiez toujours auprès de l'organisme concerné avant de vous engager." },
+      { q: 'Qu’est-ce que le Diagnostic Data IA de Bpifrance ?', a: "Un accompagnement de Bpifrance pour structurer l'usage des données et de l'IA dans une PME, dont une partie du coût est prise en charge. Il s'adresse aux PME d'au moins 10 salariés et 1 M€ de chiffre d'affaires. Renseignez-vous sur le site de Bpifrance pour les conditions à jour." },
+      { q: 'Et en Occitanie ?', a: "L'agence régionale AD'OCC et la CCI de votre département accompagnent les projets de transformation numérique et orientent vers les aides de la Région. Dans le Lot-et-Garonne, la CCI 47 est un bon premier contact." },
+      { q: 'Pouvez-vous m’aider à monter le dossier ?', a: "Je peux vous aider à décrire le projet et à fournir les éléments techniques et le devis. Le dépôt et l'éligibilité restent de votre ressort et de celui de l'organisme." },
+    ],
+  },
+];
+const all = groups.flatMap((g) => g.items);
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: all.map((i) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a.replace(/<[^>]+>/g, '') } })),
+};
+---
+<Base
+  title="FAQ : prix, méthode, sécurité et aides publiques"
+  description="Les réponses aux questions fréquentes sur Somerloop : prix d'un logiciel sur mesure, engagement, propriété du code, RGPD, IA et aides publiques (Bpifrance, Occitanie)."
+  schema={ld}
+>
+  <PageHero
+    eyebrow="Ressources"
+    title="Questions fréquentes"
+    lead="Prix, méthode, sécurité, aides publiques : ce qu'on me demande le plus souvent. Vous ne trouvez pas votre réponse ? Écrivez-moi."
+    crumbs={[{ href: '/faq/', label: 'FAQ' }]}
+  />
+  <section class="section">
+    <div class="narrow">
+      <nav class="toc" aria-label="Thèmes de la FAQ">
+        {groups.map((g, i) => <a href={`#theme-${i}`}>{g.title}</a>)}
+      </nav>
+      {groups.map((g, i) => (
+        <div class="group" id={`theme-${i}`}>
+          <h2>{g.title}</h2>
+          <Faq items={g.items} schema={false} />
+        </div>
+      ))}
+      <p class="soon">Bientôt ici : des articles, un calculateur du temps perdu et un guide à télécharger.</p>
+    </div>
+  </section>
+  <Cta />
+</Base>
+
+<style>
+  .toc { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2.5rem; }
+  .toc a { padding: .45rem .9rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); text-decoration: none; color: var(--ink); font-weight: 500; }
+  .toc a:hover { border-color: var(--ink); }
+  .group { margin-bottom: 3rem; scroll-margin-top: 96px; }
+  .group h2 { font-size: 1.6rem; }
+  .soon { color: var(--ink-soft); font-style: italic; }
+</style>

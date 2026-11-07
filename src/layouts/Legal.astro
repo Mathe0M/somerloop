@@ -1,0 +1,15 @@
+---
+import Base from './Base.astro';
+import PageHero from '../components/PageHero.astro';
+interface Props { title: string; description: string; path: string; updated: string }
+const { title, description, path, updated } = Astro.props;
+---
+<Base title={title} description={description}>
+  <PageHero title={title} crumbs={[{ href: path, label: title }]}>
+    <p class="upd">Dernière mise à jour : {updated}</p>
+  </PageHero>
+  <section class="section">
+    <div class="narrow prose"><slot /></div>
+  </section>
+</Base>
+<style> .upd { color: var(--ink-soft); margin: 0; } </style>

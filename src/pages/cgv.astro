@@ -1,0 +1,47 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { SITE } from '../config';
+const L = SITE.legal;
+---
+<Legal title="Conditions générales de vente" description="Conditions générales de vente des prestations Somerloop : devis, paiement, propriété du code, responsabilité." path="/cgv/" updated="novembre 2026">
+  <p class="todo">Brouillon à faire relire par un juriste ou un expert-comptable avant la mise en ligne.</p>
+
+  <h2>1. Objet et champ d'application</h2>
+  <p>Les présentes conditions générales de vente (CGV) s'appliquent aux prestations de conseil, de développement d'outils numériques, d'automatisation, de référencement et de maintenance réalisées par {L.fullName}, {L.status}, sous la marque Somerloop (SIRET {L.siret}), pour des clients professionnels. Toute commande implique l'acceptation des présentes CGV, qui prévalent sur les conditions générales d'achat du client sauf accord écrit contraire.</p>
+
+  <h2>2. Devis et commande</h2>
+  <p>Chaque prestation fait l'objet d'un devis précisant le périmètre, les livrables, le calendrier prévisionnel et le prix. Le devis est valable 30 jours. La commande est ferme à réception du devis signé et, le cas échéant, de l'acompte. Les prix affichés sur le site sont des fourchettes indicatives.</p>
+
+  <h2>3. Déroulement par étapes</h2>
+  <p>Les projets de développement sont découpés en étapes. Chaque étape fait l'objet d'une validation par le client. Toute demande sortant du périmètre du devis fait l'objet d'un avenant ou d'un nouveau devis.</p>
+
+  <h2>4. Prix et paiement</h2>
+  <ul>
+    <li>Les prix sont exprimés en euros. {L.vat}.</li>
+    <li>Un acompte de 30 % est demandé à la commande pour les forfaits, sauf mention contraire au devis.</li>
+    <li>Les factures sont payables à 30 jours à compter de leur date d'émission, par virement.</li>
+    <li>Les abonnements de suivi sont facturés mensuellement, à terme à échoir.</li>
+    <li>En cas de retard de paiement, des pénalités au taux de trois fois le taux d'intérêt légal sont exigibles, ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 € (articles L441-10 et D441-5 du Code de commerce).</li>
+  </ul>
+
+  <h2>5. Obligations du client</h2>
+  <p>Le client fournit en temps utile les informations, accès et validations nécessaires à la réalisation de la prestation. Il désigne un interlocuteur disposant du pouvoir de décision. Les retards dus au client décalent d'autant le calendrier.</p>
+
+  <h2>6. Obligation de moyens</h2>
+  <p>Somerloop est tenu à une obligation de moyens. Aucun résultat chiffré (chiffre d'affaires, positionnement dans les moteurs de recherche, gain de temps) n'est garanti.</p>
+
+  <h2>7. Propriété intellectuelle</h2>
+  <p>Après paiement intégral, le client devient titulaire des droits patrimoniaux sur le code et les livrables développés spécifiquement pour lui. Somerloop conserve la propriété de ses outils, bibliothèques et savoir-faire préexistants ou génériques, dont il concède au client un droit d'utilisation non exclusif et illimité dans le temps pour les besoins du livrable. Les composants libres restent soumis à leurs licences respectives. Sauf refus écrit du client, Somerloop peut citer le projet à titre de référence, sans divulguer d'information confidentielle.</p>
+
+  <h2>8. Confidentialité et données personnelles</h2>
+  <p>Chaque partie s'engage à garder confidentielles les informations de l'autre. Lorsque Somerloop traite des données personnelles pour le compte du client, il agit en qualité de sous-traitant au sens du RGPD ; les modalités sont précisées dans le devis ou dans un accord de traitement des données.</p>
+
+  <h2>9. Responsabilité</h2>
+  <p>La responsabilité de Somerloop est limitée aux dommages directs et prouvés, et plafonnée au montant hors taxes effectivement payé par le client au titre de la prestation concernée sur les douze derniers mois. Somerloop est assuré en responsabilité civile professionnelle auprès de {L.insurer}.</p>
+
+  <h2>10. Résiliation</h2>
+  <p>Les abonnements de suivi sont résiliables par chacune des parties avec un préavis d'un mois. En cas d'arrêt d'un projet par le client, les étapes réalisées et les travaux en cours sont dus. En cas de manquement grave non corrigé 15 jours après mise en demeure, l'autre partie peut résilier de plein droit.</p>
+
+  <h2>11. Droit applicable et litiges</h2>
+  <p>Les présentes CGV sont soumises au droit français. En cas de litige, les parties recherchent d'abord une solution amiable. À défaut, compétence est attribuée au tribunal de commerce d'Agen.</p>
+</Legal>

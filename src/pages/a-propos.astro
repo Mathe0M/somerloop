@@ -1,0 +1,94 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import Cta from '../components/Cta.astro';
+import { SITE } from '../config';
+---
+<Base
+  title="À propos : la personne et les valeurs derrière Somerloop"
+  description="Somerloop, c'est un développeur et chef de projet web basé à Agen qui aide les PME en croissance à reprendre la main sur leurs outils. Accompagnement, solutions malignes, sécurité incluse."
+>
+  <PageHero
+    eyebrow="À propos"
+    title="Un seul interlocuteur, <span class='hl'>de l'idée au code</span>"
+    crumbs={[{ href: '/a-propos/', label: 'À propos' }]}
+  />
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="portrait">
+        {SITE.founderPhoto
+          ? <img src={SITE.founderPhoto} alt={`Portrait de ${SITE.founder}`} width="480" height="560" loading="lazy" />
+          : <div class="placeholder" aria-hidden="true">{SITE.founder.charAt(0)}</div>}
+      </div>
+      <div class="prose">
+        <h2>Bonjour, je suis {SITE.founder}</h2>
+        <p>Chef de projet web chez Work&You depuis trois ans, j'y fais bien plus que de la gestion de projet. Je développe le site, je configure et j'automatise les outils, je gère la sécurité des accès et le RGPD de tout le réseau, et je crée les outils internes dont l'équipe a besoin.</p>
+        <p>J'ai créé Somerloop pour faire la même chose pour d'autres PME : celles qui grandissent vite et dont les outils ne suivent plus.</p>
+        <p>Somerloop est une activité complémentaire, menée en accord avec mon employeur. Concrètement, cela veut dire que je prends <strong>peu de clients à la fois</strong>, que je m'organise pour être réactif, et que je travaille au quotidien sur de vrais outils en production. Je ne travaille pas pour des cabinets de recrutement concurrents de Work&You.</p>
+        <p>J'utilise l'IA et l'automatisation pour moi-même autant que pour mes clients : c'est ce qui me permet d'aller vite sans bâcler.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <p class="eyebrow">Valeurs</p>
+      <h2>Trois principes, pas un de plus</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <span class="ico"><Icon name="handshake" /></span>
+          <h3>Accompagnement</h3>
+          <p>Je viens voir comment vous travaillez, j'explique mes choix sans jargon et je reste joignable après la livraison. Vous n'êtes jamais seul face à votre outil.</p>
+        </div>
+        <div class="card">
+          <span class="ico"><Icon name="sparkles" /></span>
+          <h3>Malin</h3>
+          <p>Ne pas perdre de temps, ni le vôtre ni le mien. La solution la plus simple qui règle vraiment le problème, même si c'est un réglage dans un logiciel que vous avez déjà.</p>
+        </div>
+        <div class="card">
+          <span class="ico"><Icon name="zap" /></span>
+          <h3>Innovation utile</h3>
+          <p>IA, automatisation, API : j'utilise les technologies récentes quand elles vous font gagner du temps ou de l'argent. Pas pour cocher une case.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap grid grid-2">
+      <div>
+        <h2 class="h3">Avec qui je travaille bien</h2>
+        <ul class="checklist">
+          <li>Des dirigeants de PME en croissance, qui décident vite</li>
+          <li>Des équipes prêtes à me montrer comment elles travaillent vraiment</li>
+          <li>Des projets où l'outil doit servir le métier sur la durée</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="h3">Ce que je ne fais pas</h2>
+        <ul class="nolist">
+          <li>Rédiger vos contenus ou vos articles</li>
+          <li>Vendre des formations en ligne</li>
+          <li>Promettre des résultats que personne ne peut garantir</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</Base>
+
+<style>
+  .split { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3.5rem; align-items: start; }
+  .portrait img, .placeholder { width: 100%; aspect-ratio: 6 / 7; border-radius: var(--radius-lg); object-fit: cover; }
+  .placeholder {
+    display: grid; place-items: center; background: linear-gradient(135deg, var(--loop-soft), var(--accent-soft));
+    font-family: var(--font-title); font-weight: 700; font-size: 8rem; color: var(--loop);
+  }
+  .h3 { font-size: 1.4rem; }
+  .nolist { padding-left: 1.2rem; color: var(--ink-soft); }
+  .nolist li { margin-bottom: .55rem; }
+  @media (max-width: 860px) { .split { grid-template-columns: 1fr; } .portrait { max-width: 320px; } }
+</style>

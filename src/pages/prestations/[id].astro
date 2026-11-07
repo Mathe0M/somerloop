@@ -1,0 +1,115 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Icon from '../../components/Icon.astro';
+import Cta from '../../components/Cta.astro';
+import Faq from '../../components/Faq.astro';
+import { SITE } from '../../config';
+
+export async function getStaticPaths() {
+  const all = (await getCollection('prestations')).sort((a, b) => a.data.order - b.data.order);
+  return all.map((entry) => ({ params: { id: entry.id }, props: { entry, all } }));
+}
+const { entry, all } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+const others = all.filter((p) => p.id !== entry.id).slice(0, 3);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: d.title,
+  description: d.description,
+  serviceType: d.keyword,
+  provider: { '@id': `${SITE.url}/#organisation` },
+  areaServed: 'FR',
+  offers: { '@type': 'Offer', priceCurrency: 'EUR', description: d.price },
+};
+---
+<Base title={d.seoTitle} description={d.description} schema={schema}>
+  <PageHero
+    eyebrow={d.badge ?? 'Prestation'}
+    title={d.title}
+    lead={d.short}
+    crumbs={[{ href: '/prestations/', label: 'Prestations' }, { href: `/prestations/${entry.id}/`, label: d.title }]}
+  >
+    <dl class="facts">
+      <div><dt><Icon name="euro" size={18} /> Budget</dt><dd>{d.price}</dd></div>
+      <div><dt><Icon name="clock" size={18} /> Durée</dt><dd>{d.duration}</dd></div>
+      <div><dt><Icon name="layers" size={18} /> Format</dt><dd>{d.format}</dd></div>
+    </dl>
+    <div class="btn-row">
+      <a class="btn btn--primary" href={`/contact/?sujet=${entry.id}`}>Demander un devis <Icon name="arrow" size={18} /></a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="prose"><Content /></div>
+      <aside class="side">
+        <div class="card">
+          <h2 class="h3">C'est pour vous si…</h2>
+          <ul class="checklist">{d.forWho.map((x) => <li>{x}</li>)}</ul>
+        </div>
+        <div class="card">
+          <h2 class="h3">Ce que vous recevez</h2>
+          <ul class="checklist">{d.deliverables.map((x) => <li>{x}</li>)}</ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <p class="eyebrow">Déroulé</p>
+      <h2>Comment ça se passe</h2>
+      <ol class="steps">
+        {d.steps.map((s, i) => (
+          <li class="card">
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="narrow">
+      <h2>Questions fréquentes</h2>
+      <Faq items={d.faq} />
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <h2>Les autres prestations</h2>
+      <div class="grid grid-3">
+        {others.map((p) => (
+          <a class="card card--link" href={`/prestations/${p.id}/`}>
+            <span class="ico"><Icon name={p.data.icon as any} /></span>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.short}</p>
+            <span class="more">Découvrir <Icon name="arrow" size={16} /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</Base>
+
+<style>
+  .facts { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; margin: 1.8rem 0 0; }
+  .facts dt { display: flex; align-items: center; gap: .4rem; font-size: .85rem; color: var(--ink-soft); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+  .facts dd { margin: .2rem 0 0; font-family: var(--font-title); font-weight: 700; font-size: 1.25rem; }
+  .split { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: start; }
+  .side { display: grid; gap: 1.25rem; position: sticky; top: 96px; }
+  .h3 { font-size: 1.2rem; }
+  .steps { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+  .num { font-family: var(--font-title); font-weight: 700; color: var(--accent-strong); font-size: 1.1rem; display: block; margin-bottom: .6rem; }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } .side { position: static; } }
+</style>

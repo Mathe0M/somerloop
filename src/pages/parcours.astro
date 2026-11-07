@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Cta from '../components/Cta.astro';
+
+// Ajouter les années dans `when` si souhaité (ex. '2016 – 2019').
+const steps = [
+  {
+    when: '3 ans', where: 'Leroy Merlin', role: 'Vendeur en alternance (BTS MCO)',
+    text: "Le terrain, le client, le commerce. J'y ai appris à écouter un besoin avant de proposer une solution, et à parler simplement de choses techniques.",
+  },
+  {
+    when: 'Formation', where: 'Licence chef de projet web', role: 'Formation',
+    text: "Gestion de projet, conception de sites, premiers développements. Le passage du commerce au numérique.",
+  },
+  {
+    when: '1 an', where: 'Tersun (photovoltaïque)', role: 'Projets web',
+    text: "Une PME en croissance dans l'énergie solaire : un premier contact avec les besoins d'outils d'une entreprise qui grandit.",
+  },
+  {
+    when: '3 ans', where: 'Work&You', role: 'Chef de projet web (alternance puis CDI)',
+    text: "Refonte du site avec une agence, puis développement en interne. Configuration et automatisation de l'ATS, sécurité des accès, RGPD, SEO et création d'outils internes : RAG, e-learning, carte interactive, assistant IA. Le réseau passe de 20 à plus de 100 personnes.",
+  },
+  {
+    when: 'Formation', where: 'WIS', role: 'Mastère Expert digital, spécialité transformation digitale',
+    text: "Prendre de la hauteur sur la transformation numérique des entreprises : stratégie, conduite du changement, données.",
+  },
+  {
+    when: 'Aujourd’hui', where: 'Somerloop', role: 'Conseil et outils sur mesure pour PME',
+    text: "Mettre cette expérience au service d'autres PME en croissance, en parallèle de mon poste chez Work&You.",
+  },
+];
+---
+<Base
+  title="Parcours : du terrain commercial au développement d'outils métier"
+  description="Leroy Merlin, licence chef de projet web, Tersun, Work&You, Mastère transformation digitale : le parcours derrière Somerloop."
+>
+  <PageHero
+    eyebrow="Parcours"
+    title="Du rayon peinture aux <span class='hl'>outils métier</span>"
+    lead="Un parcours qui commence au contact des clients et continue dans le code. C'est ce mélange qui fait la différence : je comprends votre métier avant de comprendre votre base de données."
+    crumbs={[{ href: '/parcours/', label: 'Parcours' }]}
+  />
+  <section class="section">
+    <div class="narrow">
+      <ol class="timeline">
+        {steps.map((s) => (
+          <li>
+            <p class="when">{s.when}</p>
+            <h2>{s.where}</h2>
+            <p class="role">{s.role}</p>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="btn-row"><a class="btn btn--ghost" href="/a-propos/">Ma façon de travailler</a></div>
+    </div>
+  </section>
+  <Cta />
+</Base>
+
+<style>
+  .timeline { list-style: none; margin: 0; padding: 0 0 0 2rem; border-left: 3px solid var(--line); }
+  .timeline li { position: relative; padding: 0 0 2.6rem 1rem; }
+  .timeline li::before {
+    content: ''; position: absolute; left: calc(-2rem - 11px); top: .25rem; width: 19px; height: 19px;
+    border-radius: 50%; background: var(--bg); border: 4px solid var(--loop);
+  }
+  .timeline li:last-child::before { background: var(--accent); border-color: var(--ink); }
+  .when { font-family: var(--font-title); font-weight: 600; color: var(--accent-strong); font-size: .9rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .3rem; }
+  h2 { font-size: 1.6rem; margin-bottom: .2rem; }
+  .role { color: var(--loop); font-weight: 600; margin-bottom: .6rem; }
+</style>

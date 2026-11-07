@@ -1,0 +1,204 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PrestationCards from '../components/PrestationCards.astro';
+import Cta from '../components/Cta.astro';
+---
+<Base
+  title="Somerloop | Logiciel métier sur mesure pour PME en croissance"
+  description="Somerloop développe des logiciels métier sur mesure, automatise et connecte les outils des PME qui grandissent vite. Entre le no-code et l'agence. Agen, Toulouse, France."
+>
+  <section class="home-hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Logiciel métier sur mesure · Agen, Toulouse, France</p>
+        <h1>Vos outils ne suivent plus votre croissance ? <span class="hl">Changeons ça.</span></h1>
+        <p class="lead">
+          Je développe des applications métier et j'automatise les outils des PME qui grandissent vite.
+          Un vrai logiciel pensé pour votre façon de travailler, au budget d'un indépendant.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="/contact/">Parlons de votre projet <Icon name="arrow" size={18} /></a>
+          <a class="btn btn--ghost" href="/prestations/">Voir les prestations</a>
+        </div>
+        <ul class="proof">
+          <li><strong>20 → 100+</strong> personnes outillées chez Work&You</li>
+          <li><strong>10 000+</strong> candidatures traitées par jour</li>
+          <li><strong>Prix affichés</strong> projets découpés en étapes</li>
+        </ul>
+      </div>
+      <div class="visual" aria-hidden="true">
+        <div class="vcard v1"><Icon name="database" /><span>Production</span></div>
+        <div class="vcard v2"><Icon name="app" /><span>Caisse</span></div>
+        <div class="vcard v3"><Icon name="chart" /><span>Tableau de bord</span></div>
+        <svg class="loop" viewBox="0 0 300 300">
+          <path d="M240 80A110 110 0 1 0 260 150" fill="none" stroke="#101828" stroke-width="14" stroke-linecap="round" stroke-dasharray="1 0" />
+          <circle cx="150" cy="150" r="38" fill="#5b3fd6" />
+          <circle cx="244" cy="84" r="28" fill="#ff6a3d" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Ça vous parle ?</p>
+      <h2>Trois signes que vos outils vous freinent</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <span class="ico"><Icon name="layers" /></span>
+          <h3>Vous ne voyez plus clair dans vos données</h3>
+          <p>Un tableur pour la production, un logiciel pour la caisse, des e-mails pour le reste. Pour avoir un chiffre fiable, il faut demander à trois personnes.</p>
+        </div>
+        <div class="card">
+          <span class="ico"><Icon name="clock" /></span>
+          <h3>Vos équipes perdent du temps sur des tâches sans valeur</h3>
+          <p>Doubles saisies, copier-coller, exports du lundi matin. Ce temps-là ne se voit sur aucune facture, mais il se paie chaque mois.</p>
+        </div>
+        <div class="card">
+          <span class="ico"><Icon name="target" /></span>
+          <h3>Vous atteignez un plafond</h3>
+          <p>Ce qui fonctionnait à dix ne fonctionne plus à trente. Les logiciels du marché sont trop lourds, trop chers, ou passent à côté de votre métier.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <p class="eyebrow">Prestations</p>
+      <h2>Ce que je peux faire pour vous</h2>
+      <p class="lead">Du diagnostic à la maintenance, avec des prix affichés et des projets découpés en étapes.</p>
+      <div style="margin-top:2rem"><PrestationCards /></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Le positionnement</p>
+        <h2>Entre le no-code et l'agence</h2>
+        <p>Le no-code va vite, mais il plafonne : abonnements qui grimpent, données dispersées, empilement fragile. L'agence fait du solide, avec des budgets et des délais pensés pour les grands comptes.</p>
+        <p>Somerloop se place au milieu : <strong>un vrai outil développé pour votre PME, au budget d'un indépendant</strong>, avec un seul interlocuteur du premier rendez-vous à la maintenance.</p>
+        <a class="btn btn--ghost" href="/prestations/logiciel-metier-sur-mesure/">Le logiciel sur mesure en détail</a>
+      </div>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Comparaison no-code, Somerloop, agence"><table class="compare">
+        <caption class="sr-only">Comparaison entre no-code, Somerloop et agence</caption>
+        <thead><tr><th scope="col"></th><th scope="col">No-code</th><th scope="col" class="us">Somerloop</th><th scope="col">Agence</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Adapté à votre métier</th><td>Partiellement</td><td class="us">Oui</td><td>Oui</td></tr>
+          <tr><th scope="row">Budget de départ</th><td>Faible</td><td class="us">Maîtrisé</td><td>Élevé</td></tr>
+          <tr><th scope="row">Coût qui grimpe avec l'usage</th><td>Souvent</td><td class="us">Non</td><td>Non</td></tr>
+          <tr><th scope="row">Code dont vous êtes propriétaire</th><td>Non</td><td class="us">Oui</td><td>Selon contrat</td></tr>
+          <tr><th scope="row">Interlocuteur unique</th><td>Vous-même</td><td class="us">Oui</td><td>Rarement</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Pourquoi Somerloop</p>
+        <h2>Un levier rare, utilisé au bon endroit</h2>
+        <p>Dans le jeu vidéo <em>Satisfactory</em>, les joueurs construisent des usines géantes. Quelques objets rares y décuplent la production d'une machine. Le joueur qui sait où les placer devient bien plus efficace que les autres.</p>
+        <p>C'est l'idée de Somerloop : ne pas tout refaire, mais trouver <strong>le levier malin</strong> qui débloque votre entreprise, et le mettre en place proprement.</p>
+      </div>
+      <ul class="values">
+        <li><span class="ico"><Icon name="handshake" /></span><div><h3>Accompagnement</h3><p>Je viens voir comment vous travaillez avant de proposer quoi que ce soit.</p></div></li>
+        <li><span class="ico"><Icon name="sparkles" /></span><div><h3>Malin</h3><p>La solution la plus simple qui marche, pas la plus impressionnante.</p></div></li>
+        <li><span class="ico"><Icon name="shield" /></span><div><h3>Sécurité incluse</h3><p>Double authentification, accès maîtrisés et RGPD, sans supplément.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">La preuve par l'échelle</p>
+        <h2>Des outils qui ont tenu la croissance de Work&You</h2>
+        <p>Depuis trois ans, je conçois et je fais évoluer seul les outils de Work&You, un réseau de recruteurs indépendants. Le réseau est passé de 20 à plus de 100 personnes sans que les outils deviennent un frein.</p>
+        <ul class="checklist">
+          <li>Un ATS configuré et automatisé, relié au site</li>
+          <li>Plus de 1 500 offres diffusées et plus de 10 000 candidatures gérées chaque jour</li>
+          <li>Un moteur de recherche intelligent dans la documentation interne</li>
+          <li>Une plateforme de formation interne et une carte interactive du réseau</li>
+          <li>La sécurité des accès et le RGPD de tout le réseau</li>
+        </ul>
+        <a class="btn btn--ghost" href="/realisations/">Voir les réalisations</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>100+</strong><span>utilisateurs outillés</span></div>
+        <div class="stat"><strong>1 500+</strong><span>offres diffusées</span></div>
+        <div class="stat"><strong>10 000+</strong><span>candidatures par jour</span></div>
+        <div class="stat"><strong>1</strong><span>seul interlocuteur</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <p class="eyebrow">Méthode</p>
+      <h2>Comment on travaille ensemble</h2>
+      <ol class="method">
+        <li><span>01</span><h3>On se parle</h3><p>Vous m'expliquez ce qui coince. Je vous dis franchement si je peux aider.</p></li>
+        <li><span>02</span><h3>Je viens voir</h3><p>Immersion sur le terrain, audit de vos outils, feuille de route chiffrée.</p></li>
+        <li><span>03</span><h3>On construit par étapes</h3><p>Une première version utile vite, puis des améliorations validées une à une.</p></li>
+        <li><span>04</span><h3>Je reste dans la boucle</h3><p>Maintenance, sécurité et évolutions, sans engagement long.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <Cta />
+</Base>
+
+<style>
+  .home-hero {
+    padding-block: clamp(3rem, 7vw, 6rem);
+    background:
+      radial-gradient(circle at 88% 20%, var(--loop-soft) 0, transparent 34%),
+      radial-gradient(circle at 70% 95%, var(--accent-soft) 0, transparent 30%);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 3rem; align-items: center; }
+  h1 { max-width: 16ch; }
+  .proof { list-style: none; padding: 0; margin: 2.2rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem 1.5rem; font-size: .95rem; color: var(--ink-soft); }
+  .proof strong { color: var(--ink); font-family: var(--font-title); display: block; font-size: 1.15rem; }
+  .visual { position: relative; aspect-ratio: 1; max-width: 440px; justify-self: center; width: 100%; }
+  .loop { width: 100%; height: 100%; }
+  .vcard {
+    position: absolute; display: flex; align-items: center; gap: .55rem; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 14px; padding: .7rem 1rem; box-shadow: var(--shadow);
+    font-family: var(--font-title); font-weight: 600; font-size: .95rem; color: var(--ink);
+  }
+  .vcard :global(svg) { width: 20px; height: 20px; color: var(--loop); }
+  .v1 { top: 6%; left: -2%; } .v2 { bottom: 14%; left: 2%; } .v3 { bottom: 2%; right: 0; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+  .split > * { min-width: 0; }
+  .table-scroll { overflow-x: auto; border-radius: var(--radius-lg); }
+  .compare { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; font-size: .95rem; box-shadow: var(--shadow); }
+  .compare th, .compare td { padding: .8rem .9rem; border-bottom: 1px solid var(--line); text-align: left; }
+  .compare tbody tr:last-child > * { border-bottom: 0; }
+  .compare thead th { font-family: var(--font-title); }
+  .compare tbody th { font-weight: 500; color: var(--ink-soft); }
+  .compare .us { background: var(--accent-soft); font-weight: 700; color: var(--ink); }
+  .values { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.5rem; }
+  .values li { display: flex; gap: 1rem; align-items: flex-start; }
+  .values .ico { background: rgb(255 255 255 / 0.08); color: var(--accent); flex: none; margin: 0; }
+  .values h3 { margin-bottom: .2rem; color: #fff; }
+  .values p { margin: 0; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.6rem; box-shadow: var(--shadow); }
+  .stat strong { display: block; font-family: var(--font-title); font-size: clamp(2rem, 4vw, 2.8rem); color: var(--accent-strong); line-height: 1.1; }
+  .stat span { color: var(--ink-soft); }
+  .method { list-style: none; padding: 0; margin: 2.2rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 2rem; counter-reset: m; }
+  .method li { border-top: 3px solid var(--ink); padding-top: 1.2rem; }
+  .method span { font-family: var(--font-title); font-weight: 700; color: var(--loop); }
+  .method h3 { margin: .4rem 0; }
+  @media (max-width: 520px) { .compare th, .compare td { padding: .6rem .5rem; font-size: .85rem; } }
+  @media (max-width: 900px) {
+    .hero-grid, .split { grid-template-columns: 1fr; }
+    .visual { max-width: 320px; }
+  }
+</style>

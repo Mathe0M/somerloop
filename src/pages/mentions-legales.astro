@@ -1,0 +1,34 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { SITE } from '../config';
+const L = SITE.legal;
+---
+<Legal title="Mentions légales" description="Mentions légales du site somerloop.fr : éditeur, hébergeur, propriété intellectuelle." path="/mentions-legales/" updated="novembre 2026">
+  <h2>Éditeur du site</h2>
+  <p>
+    Le site somerloop.fr est édité par {L.fullName}, {L.status}, exerçant sous la marque Somerloop.<br />
+    SIRET : {L.siret}<br />
+    Adresse : {L.address}<br />
+    E-mail : <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
+    {L.vat}
+  </p>
+  <p>Directeur de la publication : {L.fullName}.</p>
+
+  <h2>Hébergeur</h2>
+  <p>
+    {SITE.host.name}<br />
+    {SITE.host.address}<br />
+    Téléphone : {SITE.host.phone}<br />
+    Site : <a href={SITE.host.url}>{SITE.host.url.replace('https://', '')}</a>
+  </p>
+
+  <h2>Propriété intellectuelle</h2>
+  <p>L'ensemble des contenus de ce site (textes, logo, pictogrammes, mise en page, code) est la propriété de l'éditeur, sauf mention contraire. Toute reproduction, même partielle, est soumise à autorisation préalable.</p>
+  <p>Work&You est cité avec l'accord de la société, à titre de référence professionnelle. Les marques citées appartiennent à leurs propriétaires respectifs. « Satisfactory » est une marque de Coffee Stain Studios, sans lien avec Somerloop.</p>
+
+  <h2>Données personnelles</h2>
+  <p>Le traitement des données personnelles est décrit dans la <a href="/confidentialite/">politique de confidentialité</a>.</p>
+
+  <h2>Responsabilité</h2>
+  <p>Les informations publiées sur ce site sont fournies à titre indicatif. Les prix affichés sont des fourchettes : seul le devis signé fait foi. Les informations sur les aides publiques sont données sans garantie et doivent être vérifiées auprès des organismes concernés.</p>
+</Legal>
