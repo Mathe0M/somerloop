@@ -27,7 +27,9 @@ const isCurrent = (href: string) => path === href || (href !== '/' && path.start
 <script>
   const btn = document.querySelector<HTMLButtonElement>('.burger');
   const nav = document.getElementById('main-nav');
-  btn?.addEventListener('click', () => {
+  if (btn && !btn.dataset.ready) {
+  btn.dataset.ready = '1';
+  btn.addEventListener('click', () => {
     const open = btn.getAttribute('aria-expanded') === 'true';
     btn.setAttribute('aria-expanded', String(!open));
     nav?.classList.toggle('is-open', !open);
@@ -39,6 +41,7 @@ const isCurrent = (href: string) => path === href || (href !== '/' && path.start
       btn.focus();
     }
   });
+  }
 </script>
 
 <style>
