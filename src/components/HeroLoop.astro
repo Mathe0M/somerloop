@@ -1,0 +1,215 @@
+---
+/**
+ * Visuel animé de l'accueil : les outils de l'entreprise gravitent autour de la boucle,
+ * viennent s'y connecter (échange de données), puis repartent.
+ * Survol ou clic sur une étiquette : elle se connecte. Mouvement réduit : version fixe.
+ */
+import Icon from './Icon.astro';
+const nodes = [
+  { label: 'Production', icon: 'database' },
+  { label: 'Documentation interne', icon: 'file' },
+  { label: 'Factures', icon: 'receipt' },
+  { label: 'IA', icon: 'sparkles' },
+  { label: 'CRM', icon: 'users' },
+  { label: 'Clients', icon: 'handshake' },
+  { label: 'Stock', icon: 'box' },
+  { label: 'Tableau de bord', icon: 'chart' },
+] as const;
+---
+<div class="hl-wrap" role="img" aria-label="Schéma : vos outils (production, documentation, factures, IA, CRM, clients, stock, tableau de bord) se connectent à un même outil central.">
+  <svg class="hl-svg" viewBox="0 0 1000 1000" aria-hidden="true">
+    <g class="hl-links"></g>
+    <g class="hl-ring">
+      <path d="M800 266.7A366.7 366.7 0 1 0 866.7 500" fill="none" stroke="#101828" stroke-width="44" stroke-linecap="round" />
+      <circle cx="813.3" cy="280" r="93" fill="#ff6a3d" />
+    </g>
+    <circle class="hl-core" cx="500" cy="500" r="127" fill="#5b3fd6" />
+    <circle class="hl-core-pulse" cx="500" cy="500" r="127" fill="none" stroke="#5b3fd6" stroke-width="6" />
+    <g class="hl-packets"></g>
+  </svg>
+  {nodes.map((n, i) => (
+    <span class="hl-node" data-i={i} aria-hidden="true">
+      <Icon name={n.icon} size={18} /><span>{n.label}</span>
+    </span>
+  ))}
+</div>
+
+<script>
+  const NS = 'http://www.w3.org/2000/svg';
+  for (const wrap of document.querySelectorAll<HTMLElement>('.hl-wrap')) {
+    if (wrap.dataset.ready) continue;
+    wrap.dataset.ready = '1';
+    const els = [...wrap.querySelectorAll<HTMLElement>('.hl-node')];
+    const linksG = wrap.querySelector('.hl-links')!;
+    const packetsG = wrap.querySelector('.hl-packets')!;
+    const pulse = wrap.querySelector<SVGCircleElement>('.hl-core-pulse')!;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const C = 500, R_OUT = 470, R_IN = 330, CORE = 127;
+
+    type Node = { el: HTMLElement; sx: number; sy: number; a: number; r: number; target: number; until: number; pinned: boolean; hover: boolean; line: SVGLineElement };
+    const nodes: Node[] = els.map((el, i) => {
+      const line = document.createElementNS(NS, 'line');
+      line.setAttribute('class', 'hl-line');
+      linksG.appendChild(line);
+      return { el, sx: C, sy: C, a: (i / els.length) * Math.PI * 2 - Math.PI / 2, r: R_OUT, target: R_OUT, until: 0, pinned: false, hover: false, line };
+    });
+
+    const pos = (n: Node, r = n.r) => ({ x: C + Math.cos(n.a) * r * 1.0, y: C + Math.sin(n.a) * r * 0.92 });
+    const connected = (n: Node) => n.r < R_IN + 25;
+
+    function place(n: Node) {
+      const p = pos(n);
+      const hw = (n.el.offsetWidth / (wrap.clientWidth || 1)) * 50 + 1;
+      const hh = (n.el.offsetHeight / (wrap.clientHeight || 1)) * 50 + 1;
+      n.el.style.left = Math.min(100 - hw, Math.max(hw, p.x / 10)) + '%';
+      n.el.style.top = Math.min(100 - hh, Math.max(hh, p.y / 10)) + '%';
+      const k = Math.max(0, Math.min(1, (R_OUT - n.r) / (R_OUT - R_IN)));
+      n.el.classList.toggle('is-on', k > 0.85);
+      p.x = parseFloat(n.el.style.left) * 10; p.y = parseFloat(n.el.style.top) * 10;
+      // le SVG occupe 82 % du cadre, centré : conversion cadre → SVG
+      p.x = (p.x - 90) / 0.82; p.y = (p.y - 90) / 0.82;
+      n.sx = p.x; n.sy = p.y;
+      const ang = Math.atan2(p.y - C, p.x - C);
+      n.line.setAttribute('x1', String(C + Math.cos(ang) * CORE));
+      n.line.setAttribute('y1', String(C + Math.sin(ang) * CORE));
+      n.line.setAttribute('x2', String(p.x));
+      n.line.setAttribute('y2', String(p.y));
+      n.line.style.opacity = String(k);
+    }
+
+    if (reduce) {
+      nodes.forEach((n, i) => { if (i % 3 === 0) n.r = R_IN; place(n); });
+      continue;
+    }
+
+    // Petits paquets de données qui circulent le long des liens
+    const packets: { from: Node | null; to: Node | null; t: number; el: SVGCircleElement }[] = [];
+    function send(from: Node | null, to: Node | null) {
+      const el = document.createElementNS(NS, 'circle');
+      el.setAttribute('r', '16');
+      el.setAttribute('class', from ? 'hl-packet' : 'hl-packet out');
+      packetsG.appendChild(el);
+      packets.push({ from, to, t: 0, el });
+    }
+    function corePulse() {
+      pulse.classList.remove('go');
+      void pulse.getBoundingClientRect();
+      pulse.classList.add('go');
+    }
+
+    let last = performance.now(), nextPick = last + 600, mx = 0, my = 0, px = 0, py = 0;
+    function tick(now: number) {
+      const dt = Math.min(50, now - last); last = now;
+      // choisir régulièrement un outil qui vient se connecter
+      if (now > nextPick) {
+        const idle = nodes.filter((n) => n.target === R_OUT && !n.pinned && !n.hover);
+        const active = nodes.filter((n) => n.target === R_IN).length;
+        if (idle.length && active < 3) {
+          const n = idle[Math.floor(Math.random() * idle.length)];
+          n.target = R_IN; n.until = now + 2600 + Math.random() * 1600;
+        }
+        nextPick = now + 900 + Math.random() * 700;
+      }
+      for (const n of nodes) {
+        if (n.target === R_IN && !n.pinned && !n.hover && now > n.until) n.target = R_OUT;
+        if ((n.pinned || n.hover) && n.target !== R_IN) n.target = R_IN;
+        const was = connected(n);
+        n.r += (n.target - n.r) * Math.min(1, dt / 260);
+        n.a += dt * 0.000045; // lente rotation de l'ensemble
+        if (!was && connected(n)) { send(n, null); n.until = Math.max(n.until, now + 1200); }
+        if (connected(n) && Math.random() < dt / 1400) send(n, null);
+        place(n);
+      }
+      // paquets : outil → cœur, puis cœur → autre outil connecté
+      for (let i = packets.length - 1; i >= 0; i--) {
+        const p = packets[i];
+        p.t += dt / 700;
+        const src = p.from ? { x: p.from.sx, y: p.from.sy } : { x: C, y: C };
+        const dst = p.to ? { x: p.to.sx, y: p.to.sy } : { x: C, y: C };
+        const e = p.t < 0.5 ? 2 * p.t * p.t : 1 - Math.pow(-2 * p.t + 2, 2) / 2;
+        p.el.setAttribute('cx', String(src.x + (dst.x - src.x) * e));
+        p.el.setAttribute('cy', String(src.y + (dst.y - src.y) * e));
+        if (p.t >= 1) {
+          p.el.remove(); packets.splice(i, 1);
+          if (!p.to) {
+            corePulse();
+            const others = nodes.filter((n) => connected(n) && n !== p.from);
+            if (others.length) send(null, others[Math.floor(Math.random() * others.length)]);
+          }
+        }
+      }
+      // léger effet de profondeur au survol
+      px += (mx - px) * 0.08; py += (my - py) * 0.08;
+      wrap.style.setProperty('--px', px.toFixed(2));
+      wrap.style.setProperty('--py', py.toFixed(2));
+      if (!document.hidden) requestAnimationFrame(tick);
+    }
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) { last = performance.now(); requestAnimationFrame(tick); } });
+
+    nodes.forEach((n) => {
+      n.el.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') n.hover = true; });
+      n.el.addEventListener('pointerleave', () => { n.hover = false; n.until = performance.now() + 900; });
+      n.el.addEventListener('click', () => { n.pinned = !n.pinned; n.el.classList.toggle('is-pinned', n.pinned); if (!n.pinned) n.until = performance.now() + 600; });
+    });
+    wrap.addEventListener('pointermove', (e) => {
+      const b = wrap.getBoundingClientRect();
+      mx = ((e.clientX - b.left) / b.width - 0.5) * 2;
+      my = ((e.clientY - b.top) / b.height - 0.5) * 2;
+    });
+    wrap.addEventListener('pointerleave', () => { mx = 0; my = 0; });
+    requestAnimationFrame(tick);
+  }
+</script>
+
+<style>
+  .hl-wrap {
+    position: relative; aspect-ratio: 1; width: 100%; max-width: 460px; justify-self: center;
+    --px: 0; --py: 0; user-select: none; -webkit-tap-highlight-color: transparent;
+  }
+  .hl-svg { position: absolute; inset: 9%; width: 82%; height: 82%; overflow: visible; }
+  .hl-ring {
+    transform-origin: 500px 500px;
+    animation: hl-spin 38s linear infinite;
+  }
+  .hl-core { transform-origin: 500px 500px; transform: translate(calc(var(--px) * 10px), calc(var(--py) * 10px)); }
+  .hl-core-pulse { transform-origin: 500px 500px; opacity: 0; }
+  .hl-core-pulse.go { animation: hl-pulse .7s ease-out; }
+  .hl-svg :global(.hl-line) { stroke: #5b3fd6; stroke-width: 6; stroke-dasharray: 14 14; animation: hl-dash 1s linear infinite; }
+  .hl-svg :global(.hl-packet) { fill: #ff6a3d; }
+  .hl-svg :global(.hl-packet.out) { fill: #5b3fd6; }
+
+  .hl-node {
+    position: absolute; z-index: 2; transform: translate(-50%, -50%);
+    display: inline-flex; align-items: center; gap: .45rem; white-space: nowrap;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    padding: .5rem .8rem; box-shadow: var(--shadow);
+    font-family: var(--font-title); font-weight: 600; font-size: .88rem; color: var(--ink);
+    cursor: pointer; transition: border-color .25s, box-shadow .25s, background .25s, scale .25s;
+  }
+  .hl-node :global(svg) { color: var(--loop); flex: none; }
+  .hl-node.is-on { border-color: var(--loop); box-shadow: 0 0 0 4px var(--loop-soft), var(--shadow); scale: 1.05; }
+  .hl-node.is-pinned { background: var(--loop-soft); }
+  .hl-node:hover { border-color: var(--ink); }
+
+  /* Repli sans JavaScript */
+  .hl-node:nth-child(2) { left: 50%; top: 4%; }
+  .hl-node:nth-child(3) { left: 88%; top: 18%; }
+  .hl-node:nth-child(4) { left: 96%; top: 50%; }
+  .hl-node:nth-child(5) { left: 86%; top: 84%; }
+  .hl-node:nth-child(6) { left: 50%; top: 96%; }
+  .hl-node:nth-child(7) { left: 14%; top: 84%; }
+  .hl-node:nth-child(8) { left: 4%; top: 50%; }
+  .hl-node:nth-child(9) { left: 14%; top: 18%; }
+
+  @keyframes hl-spin { to { transform: rotate(360deg); } }
+  @keyframes hl-dash { to { stroke-dashoffset: -28; } }
+  @keyframes hl-pulse { from { opacity: .7; r: 127px; } to { opacity: 0; r: 200px; } }
+
+  @media (max-width: 600px) {
+    .hl-node { font-size: .74rem; padding: .35rem .55rem; gap: .3rem; }
+    .hl-node :global(svg) { width: 14px; height: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hl-ring, .hl-svg :global(.hl-line) { animation: none; }
+  }
+</style>
